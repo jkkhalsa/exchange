@@ -14,7 +14,7 @@ def ystanding(x = [], *args):
         s = 0;
         for i in range(0, k+1):
             for n in range(5):
-                s = s + n*np.sin(kn*k)
+                s = s + n*np.sin(np.pi*k)
         answers.append(s)
 
     #y_standing = sum(cn*np.sin(kn*x)*np.cos(kn*v*t))
@@ -23,7 +23,7 @@ def ystanding(x = [], *args):
 
     return answers
 
-inputs = np.linspace(0, 50, 51)
+inputs = np.linspace(0, 1, 51)
 
 sol = ystanding(inputs)
 
