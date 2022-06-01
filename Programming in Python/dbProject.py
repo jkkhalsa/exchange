@@ -31,7 +31,7 @@ class Student:
         self.name = newName
 
     def editAddress(self, newAddress):
-        self.address = self.newAddress
+        self.address = newAddress
 
     def editClass(self, newSection):
         self.section = newSection
@@ -46,6 +46,7 @@ class StudentList:
     def __init__(self, filePath):
         self.students = []
         self.sorted = False
+        print(filePath)
         with open(filePath) as input:
             for index, line in enumerate(input):
                 line = line.replace('\n', '')
@@ -76,9 +77,7 @@ class StudentList:
         pass
 
     def delete(self, index):
-        #insert deletion by index
-        #return data of student deleted
-        pass
+        self.students.remove(index)
 
     def edit(self, index, newInfo, toEdit):
         #insert editing by index
@@ -101,14 +100,46 @@ class StudentList:
 
 
 
-list = StudentList("newtext.txt")
-
 runFlag = True
+print("Welcome.  Please give us the database file (.txt extension included):")
+filePath = input()
+filePath = filePath.replace('\n', '')
+list = StudentList(filePath)
 
-while runFlag:
-    print("Welcome.  Please give us the database file (.txt extension included):")
-    filePath = input()
-    filePath = filePath.replace('\n', '')
-    list = StudentList(input)
+while(runFlag):  
+    print("\nPlease select what you'd like to do.")
+    print("Options:\n1\tAdd new record\n2\tDelete a record\n3\tEdit a record\n4\tSearch students by name\n5\tSave and exit\n6\tExit without saving")
+    choice = input()
+    match choice:
+        case 1:
+            print("Please give us the name, address, class, and grades of the student, separated by commas.")
+            newInfo = input()
+            newInfo = newInfo.replace(' ', '')
+            newInfo  = newInfo.split(',')
+            if (len(newInfo) == 8):
+                newStudent = Student(newInfo)
+                list.addStudent(newStudent)
+                print("Student", newInfo[0], "added.")
+            else:
+                print("Error in information given.  Please remember to separate values by commas and enter these values only: name, address, class, math grade, science grade, English grade, Dutch grade, and art grade.")
+
+        case 2:
+            pass
+
+        case 3:
+            pass
+
+        case 4:
+            pass
+        
+        case 5:
+            pass
+
+        case 6:
+            pass
+
+        case _:
+            print("Invalid choice.  Reprinting options.")  
+    
     
 
