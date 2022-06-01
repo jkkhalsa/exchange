@@ -1,5 +1,5 @@
-#Python Project
-#Benedetta Felici and James Khalsa
+#Python Database Project
+#Benedetta Felici, Luca whatshisface, and James Khalsa
 #Turned in <DATE>
 
 
@@ -15,16 +15,14 @@ class Student:
 
         print("For testing, grades are", grades)
 
-    #allows student object to be written to the text file in comma separated format
-    def write(self, filePath):
-        writing = open(filePath, "a")
+    #returns csv line to be written to text file
+    def write(self):
         toWrite = self.name + "," + self.address + "," + self.section
         for grade in self.grades:
             toWrite += ","
             toWrite += str(grade)
         toWrite += "\n"
-        writing.write(toWrite)
-        writing.close()
+        return toWrite
 
 
 class StudentList:
@@ -51,6 +49,7 @@ class StudentList:
 
     def addStudent(self, student):
         self.students.append(student)
+        self.sorted = False
 
     def search(self, studentName):
         #insert search function
@@ -73,6 +72,13 @@ class StudentList:
         #OPTIONAL.
         #if sorted by name, put sort flag to TRUE
         pass
+
+    def save(self, filepath):
+        writing = open(filepath, 'w')
+        for student in self.students:
+            writing.write(student.write())
+        writing.close()
+
 
 
 
