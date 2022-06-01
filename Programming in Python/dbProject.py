@@ -76,8 +76,17 @@ class StudentList:
         #return data of student deleted
         pass
 
-    def edit(self, index):
+    def edit(self, index, newName, newAddress, newSection, newGradeMath, newGradeScience,newGradeEnglish, newGradeDutch, newGradeArts):
         #insert editing by index
+        #classes are 0 - math, 1 - science, 2 - english, 3 - dutch, 4 - arts
+        self.name=newName
+        self.address=newAddress
+        self.section=newSection
+        self.grades[0]=newGradeMath
+        self.grades[1]=newGradeScience
+        self.grades[2]=newGradeEnglish
+        self.grades[3]=newGradeDutch
+        self.grades[4]=newGradeArts
         pass
 
     def sort(self, type):
