@@ -83,14 +83,14 @@ class StudentList:
         #insert editing by index
         #toEdit  name, address, section, math, science, english, dutch, arts
         match toEdit:
-            case name: self.students[index].editName(newInfo)
-            case address: self.students[index].editAddress(newInfo)
-            case section: self.students[index].editClass(newInfo)
-            case math: self.students[index].editGrade(newInfo, 0)
-            case science: self.students[index].editGrade(newInfo, 1)
-            case english: self.students[index].editGrade(newInfo, 2) 
-            case dutch: self.students[index].editGrade(newInfo, 3)
-            case arts: self.students[index].editGrade(newInfo, 4)
+            case "name": self.students[index].editName(newInfo)
+            case "address": self.students[index].editAddress(newInfo)
+            case "section": self.students[index].editClass(newInfo)
+            case "math": self.students[index].editGrade(newInfo, 0)
+            case "science": self.students[index].editGrade(newInfo, 1)
+            case "english": self.students[index].editGrade(newInfo, 2) 
+            case "dutch": self.students[index].editGrade(newInfo, 3)
+            case "arts": self.students[index].editGrade(newInfo, 4)
 
     def sort(self, type):
         #insert sort by grades or alphabetically
