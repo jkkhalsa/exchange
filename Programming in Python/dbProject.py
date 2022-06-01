@@ -92,12 +92,16 @@ class StudentList:
             case "dutch": self.students[index].editGrade(newInfo, 3)
             case "arts": self.students[index].editGrade(newInfo, 4)
 
-    def sort(self, type):
-        #insert sort by grades or alphabetically
-        #merge sort?
-        #OPTIONAL.
-        #if sorted by name, put sort flag to TRUE
-        pass
+    def sort(self, sortBy):
+        #insert sort by grades in 0 - math, 1 - science, 2 - english, 3 - dutch, 4 - arts
+        n=len(self.students)
+        for i in range (0, n-2):
+            for j in range (i+1, n-2):
+                if students[i].getGrades(sortBy)<students[j].getGrades(sortBy)
+                    aux=students[i]
+                    students[i]=students[j]
+                    students[j]=aux
+        
 
     def save(self, filepath):
         writing = open(filepath, 'w')
