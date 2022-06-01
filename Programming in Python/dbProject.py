@@ -27,6 +27,17 @@ class Student:
     def editName(self, newName):
         self.name = newName
 
+    def editAddress(self, newAddress):
+        self.address = self.newAddress
+
+    def editClass(self, newSection):
+        self.section = newSection
+
+    def editGrade(self, newGrade, classEdited):
+        #0 - math, 1 - science, 2 - english, 3 - dutch, 4 - arts
+        self.grades[classEdited] = newGrade
+
+
 
 class StudentList:
     def __init__(self, filePath):
