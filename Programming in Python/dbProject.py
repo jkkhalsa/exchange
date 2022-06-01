@@ -24,6 +24,9 @@ class Student:
         toWrite += "\n"
         return toWrite
 
+    def editName(self, newName):
+        self.name = newName
+
 
 class StudentList:
     def __init__(self, filePath):
