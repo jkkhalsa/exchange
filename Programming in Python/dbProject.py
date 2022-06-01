@@ -3,6 +3,9 @@
 #Turned in <DATE>
 
 
+from os import access, W_OK, R_OK
+from os.path import isfile
+
 
 class Student:
     #Defines the student class for the 'database'.  Database is essentially a list of Student objects.
@@ -61,6 +64,7 @@ class StudentList:
                         print("Error on line", index, ".  Check information.")
 
 
+
     def addStudent(self, student):
         self.students.append(student)
         self.sorted = False
@@ -76,9 +80,10 @@ class StudentList:
         #return data of student deleted
         pass
 
-    def edit(self, index):
+    def edit(self, index, newInfo, toEdit):
         #insert editing by index
-        pass
+
+        self.students[index].editName(newInfo)
 
     def sort(self, type):
         #insert sort by grades or alphabetically
@@ -98,6 +103,12 @@ class StudentList:
 
 list = StudentList("newtext.txt")
 
-        
+runFlag = True
 
+while runFlag:
+    print("Welcome.  Please give us the database file (.txt extension included):")
+    filePath = input()
+    filePath = filePath.replace('\n', '')
+    list = StudentList(input)
+    
 
