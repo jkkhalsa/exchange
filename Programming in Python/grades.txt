@@ -1,0 +1,9 @@
+Name,English,Math
+Mark,23,25
+Lisa,21,30
+Mike,11,30
+Sam,25,20
+Max,30,13
+argret,21,29
+May,20,19
+Lara,22,29

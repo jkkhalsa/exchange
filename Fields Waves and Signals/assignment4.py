@@ -4,14 +4,14 @@ import numpy as np
 
 def current(t):
 
-    xl = 158.113883
-    xc = xl
+    c = 4*10**-6
+    l = 0.1
+    r = 30
 
-    phi = np.arctan((xl - xc) / 30)
-    Inot = 12 / (np.sqrt(30**2 + (xl - xc)**2))
-    omega = 1581.13883
+    qnot = 48*10**-6
+    omega = np.sqrt((1/(l*c))-(r/(2*l))**2)
 
-    i = Inot * np.sin(omega * t - phi)
+    i = -(qnot*np.e**(-r*t/(2*l))*np.sin(omega*t)) - (r*np.cos(omega*t))/(2*l)
 
     return i
 
@@ -19,7 +19,7 @@ timeInputs = np.linspace(0, 50, 100)
 capacitor = current(timeInputs)
 
 
-plt.plot(timeInputs, capacitor, '-', label='Current in RLC Circuits')
+plt.plot(timeInputs, capacitor, '-', label='Current in RLC Circuit')
 plt.legend(loc='best')
 plt.xlabel('T')
 
