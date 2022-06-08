@@ -3,10 +3,6 @@
 #Turned in <DATE>
 
 
-from os import access, W_OK, R_OK
-from os.path import isfile
-
-
 class Student:
     #Defines the student class for the 'database'.  Database is essentially a list of Student objects.
     #'class' property is renamed to 'section' here to avoid conflict with Python
@@ -85,7 +81,7 @@ class StudentList:
     def delete(self, index):
         if (index > len(self.students)):
             removed = self.students.pop(index)
-            return removed.name
+            return removed.getName()
         else:
             return "error"
 
