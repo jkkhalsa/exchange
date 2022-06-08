@@ -40,6 +40,12 @@ class Student:
         #0 - math, 1 - science, 2 - english, 3 - dutch, 4 - arts
         self.grades[classEdited] = newGrade
 
+    def getName(self):
+        return self.name
+    
+    def getGrades(self, index):
+        return self.grades[index]
+
 
 
 class StudentList:
@@ -77,7 +83,11 @@ class StudentList:
         pass
 
     def delete(self, index):
-        self.students.remove(index)
+        if (index > len(self.students)):
+            removed = self.students.pop(index)
+            return removed.name
+        else:
+            return "error"
 
     def edit(self, index, newInfo, toEdit):
         #insert editing by index
@@ -132,7 +142,17 @@ while(runFlag):
                 print("Error in information given.  Please remember to separate values by commas and enter these values only: name, address, class, math grade, science grade, English grade, Dutch grade, and art grade.")
 
         case 2:
-            pass
+            print("Please give us the index of the student being deleted.")
+            index = input()
+            try:
+                index = int(index)
+                deleting = list.delete(index)
+                if(deleting != "error"):
+                    print("Student", deleting.getName(), "successfully removed.")
+                else:
+                    print("Student not removed.  Index out of bounds.")
+            except:
+                print("Please remember the index is to be a real number.")
 
         case 3:
             pass
@@ -141,10 +161,10 @@ while(runFlag):
             pass
         
         case 5:
-            pass
+            runFlag = False
 
         case 6:
-            pass
+            runFlag = False
 
         case _:
             print("Invalid choice.  Reprinting options.")  
