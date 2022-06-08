@@ -11,7 +11,7 @@ def current(t):
     qnot = 48*10**-6
     omega = np.sqrt((1/(l*c))-(r/(2*l))**2)
 
-    i = -(qnot*np.e**(-r*t/(2*l))*np.sin(omega*t)) - (r*np.cos(omega*t))/(2*l)
+    i = (qnot*np.e**(-r*t/(2*l))*np.sin(omega*t)) - (r*np.cos(omega*t))/(2*l)
 
     return i
 
