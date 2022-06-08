@@ -45,6 +45,7 @@ class Student:
 
 
 class StudentList:
+        #WORKING AND FINISHED
     def __init__(self, filePath):
         self.students = []
         self.sorted = False
@@ -68,9 +69,11 @@ class StudentList:
 
 
 
+        #WORKING AND FINISHED
     def addStudent(self, student):
         self.students.append(student)
         self.sorted = False
+
 
     def search(self, studentName):
         #insert search function
@@ -78,12 +81,15 @@ class StudentList:
         #faster to search if it's sorted by name, that's what sorted flag is for
         pass
 
+
+        #WORKING AND FINISHED
     def delete(self, index):
-        if (index > len(self.students)):
+        if (index < len(self.students)):
             removed = self.students.pop(index)
             return removed.getName()
         else:
             return "error"
+
 
     def edit(self, index, newInfo, toEdit):
         #insert editing by index
@@ -105,6 +111,7 @@ class StudentList:
         #if sorted by name, put sort flag to TRUE
         pass
 
+        #WORKING AND FINISHED
     def save(self, filepath):
         writing = open(filepath, 'w')
         for student in self.students:
@@ -123,7 +130,7 @@ list = StudentList(filePath)
 while(runFlag):  
     print("\nPlease select what you'd like to do.")
     print("Options:\n1\tAdd new record\n2\tDelete a record\n3\tEdit a record\n4\tSearch students by name\n5\tSave and exit\n6\tExit without saving")
-    choice = input()
+    choice = int(input("Enter selection: "))
     match choice:
         case 1:
             print("Please give us the name, address, class, and grades of the student, separated by commas.")
@@ -140,24 +147,23 @@ while(runFlag):
         case 2:
             print("Please give us the index of the student being deleted.")
             index = input()
-            try:
-                index = int(index)
-                deleting = list.delete(index)
-                if(deleting != "error"):
-                    print("Student", deleting.getName(), "successfully removed.")
-                else:
-                    print("Student not removed.  Index out of bounds.")
-            except:
-                print("Please remember the index is to be a real number.")
+            index = int(index)
+            deletedName = list.delete(index)
+            if(deletedName != "error"):
+                print("Student", deletedName, "successfully removed.")
+            else:
+                print("Student not removed.  Index out of bounds.")
 
         case 3:
-            pass
+            print("Please give us the index of the student to be edited.")
+            index = int(input())
 
         case 4:
             pass
         
         case 5:
             runFlag = False
+            list.save(filePath)
 
         case 6:
             runFlag = False
