@@ -1,5 +1,5 @@
 #Python Database Project
-#Benedetta Felici, Luca whatshisface, and James Khalsa
+#Benedetta Felici, Luca Sipoteanu, and James Khalsa
 #Turned in <DATE>
 
 
