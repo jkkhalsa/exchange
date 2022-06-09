@@ -6,13 +6,11 @@
 class Student:
     #Defines the student class for the 'database'.  Database is essentially a list of Student objects.
     #'class' property is renamed to 'section' here to avoid conflict with Python
-    def __init__(self, name, address, section, *grades):
+    def __init__(self, name, address, section, grades):
         self.name = name
         self.address = address
         self.section = section
         self.grades = grades
-
-        print("For testing, grades are", grades)
 
     #returns csv line to be written to text file
     def write(self):
@@ -48,8 +46,6 @@ class StudentList:
         #WORKING AND FINISHED
     def __init__(self, filePath):
         self.students = []
-        self.sorted = False
-        print(filePath)
         with open(filePath) as input:
             for index, line in enumerate(input):
                 line = line.replace('\n', '')
@@ -72,14 +68,16 @@ class StudentList:
         #WORKING AND FINISHED
     def addStudent(self, student):
         self.students.append(student)
-        self.sorted = False
 
-
-    def search(self, studentName):
-        #insert search function
-        #return index of student and student's data
-        #faster to search if it's sorted by name, that's what sorted flag is for
-        pass
+        #WORKING AND FINISHED
+    def search(self, studentName, isLast):
+        namelist = []
+        for each in self.students:
+            namelist.append(each.getName().split())
+        for index, name in enumerate(namelist):
+            if(studentName == name[isLast]):
+                return [index, self.students[index].write()]
+        return [-1, "none"]
 
 
         #WORKING AND FINISHED
@@ -90,10 +88,16 @@ class StudentList:
         else:
             return "error"
 
-
+        #WORKING AND FINISHED
     def edit(self, index, newInfo, toEdit):
         #insert editing by index
         #toEdit  name, address, section, math, science, english, dutch, arts
+        if(toEdit != "name" and toEdit != "address" and toEdit != "section"):
+            try:
+                newInfo = float(newInfo)
+            except:
+                print("Error.  Grades must be entered as a number.")
+                return
         match toEdit:
             case "name": self.students[index].editName(newInfo)
             case "address": self.students[index].editAddress(newInfo)
@@ -103,17 +107,22 @@ class StudentList:
             case "english": self.students[index].editGrade(newInfo, 2) 
             case "dutch": self.students[index].editGrade(newInfo, 3)
             case "arts": self.students[index].editGrade(newInfo, 4)
+            case _: print("Error: Incorrect section.  Maybe chekc spelling?")
+        return
 
+
+        #WORKING AND FINISHED
     def sort(self, sortBy):
         #insert sort by grades in 0 - math, 1 - science, 2 - english, 3 - dutch, 4 - arts
         n=len(self.students)
-        for i in range (0, n-2):
-            for j in range (i+1, n-2):
-                if students[i].getGrades(sortBy)<students[j].getGrades(sortBy)
-                    aux=students[i]
-                    students[i]=students[j]
-                    students[j]=aux
-        
+        for i in range (0, n):
+            for j in range (i, n):
+                if (self.students[i].getGrades(sortBy) < self.students[j].getGrades(sortBy)):
+                    aux=self.students[i]
+                    self.students[i] = self.students[j]
+                    self.students[j] = aux
+
+        return
 
         #WORKING AND FINISHED
     def save(self, filepath):
@@ -121,6 +130,7 @@ class StudentList:
         for student in self.students:
             writing.write(student.write())
         writing.close()
+        return
 
 
 
@@ -133,10 +143,10 @@ list = StudentList(filePath)
 
 while(runFlag):  
     print("\nPlease select what you'd like to do.")
-    print("Options:\n1\tAdd new record\n2\tDelete a record\n3\tEdit a record\n4\tSearch students by name\n5\tSave and exit\n6\tExit without saving")
+    print("Options:\n1\tAdd new record\n2\tDelete a record\n3\tEdit a record\n4\tSearch students by name\n5\tSort students by grades\n6\tSave and exit\n7\tExit without saving")
     choice = int(input("Enter selection: "))
     match choice:
-        case 1:
+        case 1: #add new record
             print("Please give us the name, address, class, and grades of the student, separated by commas.")
             newInfo = input()
             newInfo = newInfo.replace(' ', '')
@@ -148,28 +158,63 @@ while(runFlag):
             else:
                 print("Error in information given.  Please remember to separate values by commas and enter these values only: name, address, class, math grade, science grade, English grade, Dutch grade, and art grade.")
 
-        case 2:
-            print("Please give us the index of the student being deleted.")
-            index = input()
-            index = int(index)
-            deletedName = list.delete(index)
-            if(deletedName != "error"):
-                print("Student", deletedName, "successfully removed.")
+        case 2: #delete record
+            try:
+                index = int(input("Please give us the index of the student being deleted:\t"))
+            except:
+                print("Error.  Please remember the index is to be a whole number.")
             else:
-                print("Student not removed.  Index out of bounds.")
+                deletedName = list.delete(index)
+                if(deletedName != "error"):
+                    print("Student", deletedName, "successfully removed.")
+                else:
+                    print("Student not removed.  Index out of bounds.")
 
-        case 3:
-            print("Please give us the index of the student to be edited.")
-            index = int(input())
+        case 3: #edit record
+            try:
+                index = int(input("Please give us the index of the student being edited:\t"))
+            except:
+                print("Error.  Please remember the index is to be a whole number.")
+            else:
+                print("Please give us the category to be edited, and the new information.")
+                print("The category may be: Name, Address, Class, Math, Science, English, Dutch, or Arts.")
+                category = input("Category to be edited:\t").lower()
+                newInfo = input("Corrected or new information:\t")
+                list.edit(index, newInfo, category)
 
-        case 4:
-            pass
+        case 4: #search by name
+            print("Would you like to search by first or last name?")
+            isLast = input("(Type 'first' or 'last'):\t").lower()
+            name = input("Name of student to be searched:\t")
+            if(isLast == "first"):
+                found = list.search(name, 0)
+            elif(isLast == "last"):
+                found = list.search(name, 1)
+            else:
+                print("Error.  Please check spelling on 'first' or 'last'.")
+
+            if(found[0] != -1):
+                print("Found at index", found[0], "with information", found[1])
+            else:
+                print("Student", name, "not found.  Spelling error?")
+            
+        case 5: #sort students by grades
+            print("Please give us the subject to sort by.")
+            print("The subject may be: Math, Science, English, Dutch, or Arts.")
+            category = input("Subject to sort by:\t").lower()
+            match category:
+                case "math": list.sort(0)
+                case "science": list.sort(1)
+                case "english": list.sort(2)
+                case "dutch": list.sort(3)
+                case "arts": list.sort(4)
+                case _: print("Error.  Check the spelling of the subject?")
         
-        case 5:
+        case 6: #save and exit
             runFlag = False
             list.save(filePath)
 
-        case 6:
+        case 7: #save without exiting
             runFlag = False
 
         case _:
