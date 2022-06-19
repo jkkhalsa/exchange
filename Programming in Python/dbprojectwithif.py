@@ -169,7 +169,6 @@ while(runFlag):
         if(choice == 1): #add new record
             print("Please give us the name, address, class, and grades of the student, separated by commas.")
             newInfo = input()
-            newInfo = newInfo.replace(' ', '')
             newInfo  = newInfo.split(',')
             if (len(newInfo) == 8): #make sure we have the correct amount of information
                 try:
