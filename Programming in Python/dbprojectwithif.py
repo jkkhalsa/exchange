@@ -1,6 +1,6 @@
 #Python Database Project
 #Benedetta Felici, Luca Sipoteanu, and James Khalsa
-#Turned in <DATE>
+#Modified to add if statements instead of switchcases 6/19
 
 
 class Student:
