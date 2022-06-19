@@ -172,12 +172,18 @@ while(runFlag):
             newInfo = newInfo.replace(' ', '')
             newInfo  = newInfo.split(',')
             if (len(newInfo) == 8): #make sure we have the correct amount of information
-                newStudent = Student(newInfo)
-                list.addStudent(newStudent)
-                print("Student", newInfo[0], "added.")
+                try:
+                    for i in range(3, 8):
+                            newInfo[i] = float(newInfo[i])
+                except:
+                    print("Grades must be entered as numbers.")
+                else:
+                    newStudent = Student(newInfo[0], newInfo[1], newInfo[2], newInfo[3:])
+                    list.addStudent(newStudent)
+                    print("Student", newInfo[0], "added.")
             else:
                 print("Error in information given.  Please remember to separate values by commas and enter these values only: name, address, class, math grade, science grade, English grade, Dutch grade, and art grade.")
-
+    
         elif(choice == 2): #delete record
             try:
                 index = int(input("Please give us the index of the student being deleted:\t"))
